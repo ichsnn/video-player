@@ -69,21 +69,18 @@ video.forEach((videoPlayer) => {
         console.log(videoPlayer.requestFullscreen());
     };
 
-    component.onmouseenter = (e) => {
-        const controlContain = component.getElementsByClassName('video-controller')[0]
+    component.onmouseover = (e) => {
+        const controlContain =
+            component.getElementsByClassName('video-controller')[0];
         component.onmousemove = (e) => {
-            component.style.cursor = 'default'
-            controlContain.classList.remove('display-none')
+            component.style.cursor = 'default';
+            controlContain.classList.remove('display-none');
         };
-    };
-
-    component.onmouseleave = (e) => {
-        const controlContain = component.getElementsByClassName('video-controller')[0]
         setTimeout(() => {
-            controlContain.classList.add('display-none')
-            component.style.cursor = 'none'
-        }, 5000)
-    }
+            controlContain.classList.add('display-none');
+            component.style.cursor = 'none';
+        }, 2000);
+    };
 
     videoPlayer.addEventListener('timeupdate', () => {
         const duration = component.getElementsByClassName('duration')[0];
