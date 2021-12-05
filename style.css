@@ -49,6 +49,11 @@ body {
     padding: 4vh 1vw 2vh 1vw;
 }
 
+.video-container:-webkit-full-screen video {height: 100%;width: 100%;}
+.video-container:-moz-full-screen video {height: 100%;width: 100%;}
+.video-container:-ms-fullscreen video {height: 100%;width: 100%;}
+.video-container:fullscreen video {height: 100%;width: 100%;}
+
 .video-controller-container {
     display: flex;
     position: absolute;

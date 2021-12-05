@@ -66,20 +66,37 @@ video.forEach((videoPlayer) => {
     };
 
     screenControl.onclick = (e) => {
-        console.log(videoPlayer.requestFullscreen());
-    };
+        const videoContainer = videoPlayer.parentElement;
+        const fullScreen =
+            screenControl.getElementsByClassName('fullscreen')[0];
+        const exitFullscreen =
+            screenControl.getElementsByClassName('exitFullscreen')[0];
 
-    component.onmouseover = (e) => {
-        const controlContain =
-            component.getElementsByClassName('video-controller')[0];
-        component.onmousemove = (e) => {
-            component.style.cursor = 'default';
-            controlContain.classList.remove('display-none');
-        };
-        setTimeout(() => {
-            controlContain.classList.add('display-none');
-            component.style.cursor = 'none';
-        }, 2000);
+        if (document.fullscreenElement == null) {
+            exitFullscreen.classList.remove('display-none')
+            fullScreen.classList.add('display-none')
+            if (videoContainer.requestFullscreen) {
+                videoContainer.requestFullscreen();
+            } else if (videoContainer.mozRequestFullScreen) {
+                videoContainer.mozRequestFullScreen();
+            } else if (videoContainer.webkitRequestFullScreen) {
+                videoContainer.webkitRequestFullScreen();
+            } else if (videoContainer.msRequestFullscreen) {
+                videoContainer.msRequestFullscreen();
+            }
+        } else {
+            exitFullscreen.classList.add('display-none')
+            fullScreen.classList.remove('display-none')
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
     };
 
     videoPlayer.addEventListener('timeupdate', () => {
