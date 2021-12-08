@@ -21,6 +21,20 @@ class Timer {
     }
 }
 
+// const pointerSleep = new Promise((resolve, reject, func) => {
+//     if (func == true) {
+//         resolve(
+//             setTimeout(() => {
+//                 console.log('a');
+//             }, 1000)
+//         );
+//     } else {
+//         reject(console.log("test"));
+//     }
+// });
+
+var pointerSleep;
+
 const video = document.querySelectorAll('video');
 
 video.forEach((videoPlayer) => {
@@ -29,6 +43,29 @@ video.forEach((videoPlayer) => {
     const screenControl = component.getElementsByClassName('screen')[0];
     const nextControl = component.getElementsByClassName('next-video')[0];
     const soundControl = component.getElementsByClassName('sound')[0];
+    const barTrack = component.getElementsByClassName('bar-track')[0];
+    const controller = component.querySelector('.video-controller')
+
+    barTrack.onclick = (e) => {
+        console.log(e);
+    };
+
+    component.onmousemove = (e) => {
+        component.style.cursor = 'default';
+        controller.classList.remove('display-none');
+        clearTimeout(pointerSleep);
+        if (!videoPlayer.paused) {
+            pointerSleep = setTimeout(() => {
+                console.log('hide');
+                component.style.cursor = 'none';
+                controller.classList.add('display-none');
+            }, 5000);
+        }
+    };
+
+    component.onclick = (e) => {
+        console.log(e);
+    };
 
     playControl.onclick = (e) => {
         const play = playControl.getElementsByClassName('play')[0];
@@ -73,8 +110,8 @@ video.forEach((videoPlayer) => {
             screenControl.getElementsByClassName('exitFullscreen')[0];
 
         if (document.fullscreenElement == null) {
-            exitFullscreen.classList.remove('display-none')
-            fullScreen.classList.add('display-none')
+            exitFullscreen.classList.remove('display-none');
+            fullScreen.classList.add('display-none');
             if (videoContainer.requestFullscreen) {
                 videoContainer.requestFullscreen();
             } else if (videoContainer.mozRequestFullScreen) {
@@ -85,8 +122,8 @@ video.forEach((videoPlayer) => {
                 videoContainer.msRequestFullscreen();
             }
         } else {
-            exitFullscreen.classList.add('display-none')
-            fullScreen.classList.remove('display-none')
+            exitFullscreen.classList.add('display-none');
+            fullScreen.classList.remove('display-none');
             if (document.exitFullscreen) {
                 document.exitFullscreen();
             } else if (document.webkitExitFullscreen) {

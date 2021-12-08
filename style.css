@@ -101,13 +101,13 @@ body {
 
 .controller .left {
     display: flex;
-    gap: 3vh;
+    gap: 4vh;
     align-items: center;
 }
 
 .controller .right {
     display: flex;
-    gap: 3vh;
+    gap: 4vh;
     align-items: center;
 }
 
