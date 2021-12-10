@@ -21,18 +21,6 @@ class Timer {
     }
 }
 
-// const pointerSleep = new Promise((resolve, reject, func) => {
-//     if (func == true) {
-//         resolve(
-//             setTimeout(() => {
-//                 console.log('a');
-//             }, 1000)
-//         );
-//     } else {
-//         reject(console.log("test"));
-//     }
-// });
-
 var pointerSleep;
 
 const video = document.querySelectorAll('video');
@@ -43,11 +31,15 @@ video.forEach((videoPlayer) => {
     const screenControl = component.getElementsByClassName('screen')[0];
     const nextControl = component.getElementsByClassName('next-video')[0];
     const soundControl = component.getElementsByClassName('sound')[0];
-    const barTrack = component.getElementsByClassName('bar-track')[0];
-    const controller = component.querySelector('.video-controller')
+    const barTrack = component.getElementsByClassName('duration-bar')[0];
+    const controller = component.querySelector('.video-controller');
 
     barTrack.onclick = (e) => {
-        console.log(e);
+        let current = videoPlayer.currentTime;
+        let duration = videoPlayer.duration;
+        let newWidth = (e.offsetX / barTrack.clientWidth) * 100;
+        videoPlayer.currentTime = newWidth * duration / 100
+        console.log(newWidth * duration)
     };
 
     component.onmousemove = (e) => {
@@ -61,10 +53,6 @@ video.forEach((videoPlayer) => {
                 controller.classList.add('display-none');
             }, 5000);
         }
-    };
-
-    component.onclick = (e) => {
-        console.log(e);
     };
 
     playControl.onclick = (e) => {
@@ -160,4 +148,11 @@ video.forEach((videoPlayer) => {
 
         bar.style.width = `${bar.ariaValueNow}%`;
     });
+
+    videoPlayer.onpause = (e) => {
+        const play = playControl.getElementsByClassName('play')[0];
+        const pause = playControl.getElementsByClassName('pause')[0];
+        play.classList.remove('display-none')
+        pause.classList.add('display-none')
+    }
 });
