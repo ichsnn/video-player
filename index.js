@@ -22,6 +22,7 @@ class Timer {
 }
 
 var pointerSleep;
+var indicator;
 
 const video = document.querySelectorAll('video');
 
@@ -35,24 +36,38 @@ video.forEach((videoPlayer) => {
     const controller = component.querySelector('.video-controller');
 
     document.onkeydown = (e) => {
-        if(e.keyCode === 39) {
+        if (e.keyCode === 39) {
             if (videoPlayer.currentTime <= videoPlayer.duration - 10) {
                 videoPlayer.currentTime += 10;
             } else {
                 videoPlayer.currentTime = videoPlayer.duration;
             }
         }
-        if(e.keyCode === 37) {
-            if(videoPlayer.currentTime >= 10) {
+        if (e.keyCode === 37) {
+            if (videoPlayer.currentTime >= 10) {
                 videoPlayer.currentTime -= 10;
             } else {
                 videoPlayer.currentTime = 0;
             }
         }
-        if(e.keyCode == 32) {
-            (videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause());
+        if (e.keyCode == 32) {
+            videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause();
         }
-    }
+    };
+
+    barTrack.onmousemove = (e) => {
+        const track = barTrack.querySelector('.bar-track').style;
+        track.setProperty(
+            '--left',
+            `${(e.offsetX / barTrack.clientWidth) * 100}%`
+        );
+        track.setProperty('--display', 'block');
+    };
+
+    barTrack.onmouseleave = (e) => {
+        const track = barTrack.querySelector('.bar-track').style;
+        track.setProperty('--display', 'none');
+    };
 
     barTrack.onclick = (e) => {
         let current = videoPlayer.currentTime;
@@ -92,13 +107,13 @@ video.forEach((videoPlayer) => {
     soundControl.onmouseenter = (e) => {
         const slider = soundControl.getElementsByClassName('slider')[0];
         slider.classList.toggle('display-none');
-        barTrack.classList.add("display-none");
+        barTrack.classList.add('display-none');
     };
 
     soundControl.onmouseleave = (e) => {
         const slider = soundControl.getElementsByClassName('slider')[0];
         slider.classList.toggle('display-none');
-        barTrack.classList.remove("display-none");
+        barTrack.classList.remove('display-none');
     };
 
     soundControl.onclick = (e) => {
@@ -183,5 +198,5 @@ video.forEach((videoPlayer) => {
         const pause = playControl.getElementsByClassName('pause')[0];
         play.classList.add('display-none');
         pause.classList.remove('display-none');
-    }
+    };
 });
