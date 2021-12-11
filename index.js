@@ -38,18 +38,18 @@ video.forEach((videoPlayer) => {
         let current = videoPlayer.currentTime;
         let duration = videoPlayer.duration;
         let newWidth = (e.offsetX / barTrack.clientWidth) * 100;
-        videoPlayer.currentTime = newWidth * duration / 100
-        console.log(newWidth * duration)
+        videoPlayer.currentTime = (newWidth * duration) / 100;
+        console.log(newWidth * duration);
     };
 
-    component.onmousemove = (e) => {
-        component.style.cursor = 'default';
+    videoPlayer.onmousemove = (e) => {
+        videoPlayer.style.cursor = 'default';
         controller.classList.remove('display-none');
         clearTimeout(pointerSleep);
         if (!videoPlayer.paused) {
             pointerSleep = setTimeout(() => {
                 console.log('hide');
-                component.style.cursor = 'none';
+                videoPlayer.style.cursor = 'none';
                 controller.classList.add('display-none');
             }, 5000);
         }
@@ -72,11 +72,13 @@ video.forEach((videoPlayer) => {
     soundControl.onmouseenter = (e) => {
         const slider = soundControl.getElementsByClassName('slider')[0];
         slider.classList.toggle('display-none');
+        barTrack.classList.add("display-none");
     };
 
     soundControl.onmouseleave = (e) => {
         const slider = soundControl.getElementsByClassName('slider')[0];
         slider.classList.toggle('display-none');
+        barTrack.classList.remove("display-none");
     };
 
     soundControl.onclick = (e) => {
@@ -152,7 +154,7 @@ video.forEach((videoPlayer) => {
     videoPlayer.onpause = (e) => {
         const play = playControl.getElementsByClassName('play')[0];
         const pause = playControl.getElementsByClassName('pause')[0];
-        play.classList.remove('display-none')
-        pause.classList.add('display-none')
-    }
+        play.classList.remove('display-none');
+        pause.classList.add('display-none');
+    };
 });

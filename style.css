@@ -22,32 +22,22 @@ body {
     display: block !important;
 }
 
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
 .video-container {
     font-family: 'Open Sans', sans-serif;
     font-weight: 600;
-    font-size: calc(2vh);
+    height: 100vh;
+    background-color: black;
     position: relative;
-    display: flex;
 }
 
 .video-container video {
-    width: 85vw;
-    /* height: 360px; */
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
     z-index: 0;
-}
-
-.video-controller {
-    position: relative;
-    background: linear-gradient(hsla(0, 0%, 0%, 0), rgba(147, 105, 189, 0.7));
-    opacity: 1;
-    padding: 4vh 1vw 2vh 1vw;
 }
 
 .video-container:-webkit-full-screen video {height: 100%;width: 100%;}
@@ -56,28 +46,35 @@ body {
 .video-container:fullscreen video {height: 100%;width: 100%;}
 
 .video-controller-container {
-    display: flex;
     position: absolute;
     width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
+    bottom: 0;
     flex-direction: column;
     justify-content: end;
     z-index: 2147483647;
 }
 
-.controller_duration-bar .bar {
+.video-controller {
     position: relative;
-    width: 0%;
-    height: 1vh;
-    background-color: rgb(128, 0, 255);
-    margin-bottom: 2vh;
-    z-index: 1;
+    background: linear-gradient(hsla(0, 0%, 0%, 0), rgba(147, 105, 189, 0.7));
+    opacity: 1;
+    padding: 6px 9px 6px 9px;
 }
 
 .duration-bar {
     cursor: pointer;
+    display: flex;
+    height: 5px;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.duration-bar .bar {
+    position: relative;
+    width: 0%;
+    height: 100%;
+    background-color: purple;
+    z-index: 1;
 }
 
 .duration-bar .bar::after {
@@ -87,31 +84,33 @@ body {
     top: 50%;
     transform: translateY(-50%) translateX(50%);
     border-radius: 50%;
-    height: 3vh;
-    width: 3vh;
-    background-color: rgb(128, 0, 255);
-    display: none;
+    height: 15px;
+    width: 15px;
+    background-color: purple;
+    /* display: none; */
 }
 
-.duration-bar:hover>.bar {
-    height: 1.5vh;
+.duration-bar:hover>.bar, .duration-bar:hover>.bar-track {
+    height: 7px;
 }
 
 .duration-bar:hover>.bar::after {
     display: block;
 }
 
-.controller_duration-bar .bar-track {
+.duration-bar .bar-track {
     position: absolute;
     background-color: rgba(128, 128, 128, 0.5);
     width: 100%;
     height: 100%;
-    top: 0;
+    top: 50%;
     left: 0;
+    transform: translateY(-50%);
     z-index: 0;
 }
 
 .controller_duration-bar .controller .duration-container {
+    font-size: calc(0.7em + 1vh);
     display: flex;
     align-items: center;
     gap: 1vh;
@@ -127,19 +126,19 @@ body {
 
 .controller .left {
     display: flex;
-    gap: 4vh;
     align-items: center;
+    gap: 10px;
 }
 
 .controller .right {
     display: flex;
-    gap: 4vh;
     align-items: center;
 }
 
 .play-pause {
-    width: 5vh;
     cursor: pointer;
+    height: 100%;
+    width: 100%;
 }
 
 .play-pause svg {
@@ -165,7 +164,8 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
-    width: 5vh;
+    height: 100%;
+    width: 100%;
 }
 
 .next-video svg {
@@ -178,20 +178,49 @@ body {
     align-items: center;
     color: white;
     gap: 0.75vh;
+    height: 100%;
+    width: 100%;
 }
 
 .speaker {
     cursor: pointer;
     display: flex;
     align-items: center;
-    width: 5vh;
+    height: 100%;
+    width: 100%;
+}
+
+.slider {
+    position: absolute;
+    top: -100%;
+    transform: translateY(-60%);
+    padding: 10px 10px;
+    border-radius: 6px;
+    background-color: rgba(32, 32, 32, 0.452);
+}
+
+.slider .track {
+    width: 5px;
+    position: relative;
+    height: calc(100px);
+    background-color: gray;
+}
+
+.slider .track::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+    background-color: purple;
 }
 
 .speakerMuted {
     cursor: pointer;
     display: flex;
     align-items: center;
-    width: 5vh;
+    height: 100%;
+    width: 100%;
 }
 
 .speaker svg {
@@ -208,14 +237,18 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 .screen .fullscreen {
-    height: 5vh;
+    height: 100%;
+    width: 100%;
 }
 
 .screen .exitFullscreen {
-    height: 5vh;
+    height: 100%;
+    width: 100%;
 }
 
 .screen svg {
