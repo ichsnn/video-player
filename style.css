@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: rebeccapurple;
+    background-color: whitesmoke;
 }
 
 .relative {
@@ -39,6 +39,7 @@ body {
 
 .video-container video {
     width: 85vw;
+    /* height: 360px; */
     z-index: 0;
 }
 
