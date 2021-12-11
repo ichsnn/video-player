@@ -110,6 +110,9 @@ body {
 }
 
 .controller_duration-bar .controller .duration-container {
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     font-size: calc(0.7em + 1vh);
     display: flex;
     align-items: center;

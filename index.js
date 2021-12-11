@@ -34,6 +34,26 @@ video.forEach((videoPlayer) => {
     const barTrack = component.getElementsByClassName('duration-bar')[0];
     const controller = component.querySelector('.video-controller');
 
+    document.onkeydown = (e) => {
+        if(e.keyCode === 39) {
+            if (videoPlayer.currentTime <= videoPlayer.duration - 10) {
+                videoPlayer.currentTime += 10;
+            } else {
+                videoPlayer.currentTime = videoPlayer.duration;
+            }
+        }
+        if(e.keyCode === 37) {
+            if(videoPlayer.currentTime >= 10) {
+                videoPlayer.currentTime -= 10;
+            } else {
+                videoPlayer.currentTime = 0;
+            }
+        }
+        if(e.keyCode == 32) {
+            (videoPlayer.paused ? videoPlayer.play() : videoPlayer.pause());
+        }
+    }
+
     barTrack.onclick = (e) => {
         let current = videoPlayer.currentTime;
         let duration = videoPlayer.duration;
@@ -157,4 +177,11 @@ video.forEach((videoPlayer) => {
         play.classList.remove('display-none');
         pause.classList.add('display-none');
     };
+
+    videoPlayer.onplay = (e) => {
+        const play = playControl.getElementsByClassName('play')[0];
+        const pause = playControl.getElementsByClassName('pause')[0];
+        play.classList.add('display-none');
+        pause.classList.remove('display-none');
+    }
 });
